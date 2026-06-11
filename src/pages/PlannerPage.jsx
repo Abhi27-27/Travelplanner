@@ -26,7 +26,7 @@ export default function PlannerPage() {
     
     try {
       const response = await axios.post(
-        'http://localhost:5000/api/planner/generate', 
+        `${import.meta.env.VITE_API_URL}/api/planner/generate`, 
         tripDetails,
         {
           headers: {
