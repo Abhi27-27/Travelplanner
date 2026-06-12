@@ -86,12 +86,6 @@ export default function Home() {
                 <path strokeLinecap="round" strokeLinejoin="round" d="M13 7l5 5m0 0l-5 5m5-5H6" />
               </svg>
             </Link>
-            <Link
-              to="/login"
-              className="rounded-full border border-white/20 px-8 py-4 text-base font-semibold text-white/80 transition hover:border-white/40 hover:text-white"
-            >
-              Sign in
-            </Link>
           </div>
 
           <div className="mt-16 grid grid-cols-3 gap-8 border-t border-white/10 pt-10 animate-slide-up stagger-3">
