@@ -10,17 +10,17 @@ export const AuthProvider = ({ children }) => {
     try {
       const storedUser = localStorage.getItem('user');
       
-      // Only try to parse the data if it exists AND isn't the word "undefined"
+      
       if (storedUser && storedUser !== 'undefined') {
         setUser(JSON.parse(storedUser));
       } else {
-        localStorage.removeItem('user'); // Clean up garbage data
+        localStorage.removeItem('user'); 
       }
     } catch (error) {
       console.error("🔴 Error reading user from memory:", error);
-      localStorage.removeItem('user'); // Nuke corrupted data
+      localStorage.removeItem('user'); 
     } finally {
-      setIsLoading(false); // ALWAYS tell React we are done loading
+      setIsLoading(false); 
     }
   }, []);
 

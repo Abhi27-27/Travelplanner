@@ -53,7 +53,7 @@ export default function Home() {
 
   return (
     <div>
-      {/* Hero */}
+      {}
       <section className="relative overflow-hidden bg-mesh px-4 pb-24 pt-32 sm:px-6 lg:px-8 lg:pb-32 lg:pt-40">
         <div className="pointer-events-none absolute inset-0 overflow-hidden">
           <div className="absolute -left-40 top-20 h-96 w-96 rounded-full bg-brand-500/20 blur-3xl" />
@@ -103,7 +103,7 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Features */}
+      {}
       <section className="px-4 py-20 sm:px-6 lg:px-8">
         <div className="mx-auto max-w-7xl">
           <div className="text-center">
@@ -131,7 +131,7 @@ export default function Home() {
         </div>
       </section>
 
-      {/* How it works */}
+      {}
       <section className="bg-stone-900 px-4 py-20 sm:px-6 lg:px-8">
         <div className="mx-auto max-w-7xl">
           <div className="text-center">
@@ -151,7 +151,7 @@ export default function Home() {
         </div>
       </section>
 
-      {/* CTA */}
+      {}
       <section className="px-4 py-20 sm:px-6 lg:px-8">
         <div className="mx-auto max-w-4xl overflow-hidden rounded-3xl bg-gradient-to-br from-brand-600 to-brand-800 p-10 text-center shadow-2xl shadow-brand-900/20 sm:p-16">
           <h2 className="font-display text-4xl text-white">Ready to explore the world?</h2>
