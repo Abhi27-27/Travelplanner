@@ -1,150 +1,102 @@
-# ✈️ AI Travel Planner (Frontend)
+# Travel Planner Platform - Frontend
 
-<div align="center">
+A web app that builds a day-by-day travel itinerary from a few inputs. You enter a
+destination, the number of days, a budget level and your interests, and it generates
+a plan using an AI model, shows a map of the place, and lets you save trips to your
+account to open again later.
 
-![Voyago](https://img.shields.io/badge/Voyago-Travel_AI-4f46e5?style=for-the-badge&logo=react&logoColor=white)
-![React](https://img.shields.io/badge/React-18-61DAFB?style=for-the-badge&logo=react&logoColor=black)
-![Vite](https://img.shields.io/badge/Vite-5-646CFF?style=for-the-badge&logo=vite&logoColor=white)
-![TailwindCSS](https://img.shields.io/badge/Tailwind_CSS-4-06B6D4?style=for-the-badge&logo=tailwindcss&logoColor=white)
+This is the frontend repo, built with React and Vite. It talks to a separate Express
+API (the backend repo).
 
-**Your next adventure, perfectly planned — powered by AI**
+## Tech stack
 
-[🌐 Live Demo](https://travelplanner-one-phi.vercel.app/) · [⚙️ Backend Repo](https://github.com/Abhi27-27/Travelplanner-backend) · [🐛 Report Bug](https://github.com/Abhi27-27/Travelplanner/issues)
+- React 19 with Vite
+- React Router for navigation
+- Context API for auth state
+- Tailwind CSS for styling
+- axios for API calls
 
-</div>
+## Features
 
----
+- Account sign up and login
+- Itinerary generation from a destination, a day count (1 to 14), a budget and
+  interests
+- A Google Map next to the itinerary that updates to the chosen destination
+- Save a generated trip and view all saved trips on a separate page
+- Protected pages that redirect to login when you are not signed in
 
-## 📌 Overview
+## How it connects to the backend
 
-AI-powered travel planning platform where users enter a destination, trip duration, budget, and interests — and receive a personalized day-by-day itinerary in seconds. This repository contains the **React frontend**.
+The app keeps the logged-in user (and their token) in an auth context and in the
+browser's local storage. Protected requests send the token in the Authorization
+header.
 
----
+Generating a trip works like this:
 
-## 🚀 Live Demo
+```
+the planner form collects destination, days, budget, interests
+        -> POST /api/planner/generate  (with the token)
+        -> the backend returns the itinerary as JSON
+        -> the timeline component renders it day by day
+        -> the map updates to the destination
+```
 
-> **Deployed on Vercel:** [https://travelplanner-one-phi.vercel.app/](https://travelplanner-one-phi.vercel.app/)
+Saving a trip sends it to POST /api/planner/save, and the My Trips page loads them
+from GET /api/planner/saved.
 
----
-
-## ✨ Features
-
-- 🤖 **AI Itinerary Generation** — Llama 3 via Groq API creates detailed day-by-day travel plans
-- 🗺️ **Interactive Maps** — Embedded Google Maps preview updates with your destination
-- 💾 **Save Trips** — Store generated itineraries to your personal dashboard
-- 📚 **My Trips Library** — Browse and revisit all saved itineraries with gradient trip cards
-- 🔐 **JWT Authentication** — Secure login/signup with persistent sessions via localStorage
-- 🛡️ **Protected Routes** — Planner and My Trips pages require authentication
-- 📱 **Fully Responsive** — Mobile-first design with smooth animations
-
----
-
-## 🛠️ Tech Stack
-
-| Category | Technology |
-|---|---|
-| Framework | React 18 |
-| Build Tool | Vite |
-| Styling | Tailwind CSS v4 |
-| Routing | React Router DOM v6 |
-| HTTP Client | Axios |
-| State Management | React Context API (Auth) |
-| Deployment | Vercel |
-
----
-
-## 📁 Project Structure
+## Project structure
 
 ```
 src/
-├── components/
-│   ├── Navbar.jsx            # Top navigation bar
-│   ├── Footer.jsx            # Site footer
-│   ├── AuthLayout.jsx        # Split-screen auth page wrapper
-│   ├── Logo.jsx              # Voyago logo component
-│   ├── LoadingSpinner.jsx    # Reusable spinner
-│   └── ProtectedRoute.jsx    # Auth guard for private pages
-├── context/
-│   └── AuthContext.jsx       # Global auth state + localStorage sync
-├── features/
-│   └── planner/
-│       └── components/
-│           ├── SelectionForm.jsx      # Trip input form (destination, days, budget)
-│           └── ItineraryTimeline.jsx  # Day-by-day itinerary display
-├── pages/
-│   ├── Home.jsx              # Landing page with hero + features
-│   ├── PlannerPage.jsx       # Main planner UI with map + timeline
-│   ├── MyTrips.jsx           # Saved trips dashboard
-│   ├── LoginPage.jsx         # Login form
-│   └── SignupPage.jsx        # Registration form
-└── main.jsx                  # App entry point with AuthProvider
+  main.jsx                 entry point, wraps the app in the auth provider
+  App.jsx                  routes: home, planner, login, signup, my-trips
+  context/
+    AuthContext.jsx        holds the user and login/logout, persists to storage
+  components/
+    ProtectedRoute.jsx     sends logged-out users to the login page
+    Navbar, Footer, ...    shared layout
+  pages/
+    Home.jsx               landing page
+    PlannerPage.jsx        the main page: form, map and itinerary
+    MyTrips.jsx            saved trips
+    LoginPage.jsx
+    SignupPage.jsx
+  features/
+    planner/components/
+      SelectionForm.jsx        inputs, including the 1 to 14 day slider
+      ItineraryTimeline.jsx    renders the generated plan
 ```
 
----
-
-## ⚙️ Getting Started
+## Getting started
 
 ### Prerequisites
 
-- Node.js v18+
-- Backend server running (see [Backend Repo](https://github.com/Abhi27-27/Travelplanner-backend))
+- Node.js 18 or newer
+- The backend running (locally or deployed)
 
-### Installation
+### Install and run
 
 ```bash
-# 1. Clone the repository
-git clone https://github.com/Abhi27-27/Travelplanner.git
-cd Travelplanner
-
-# 2. Install dependencies
 npm install
-
-# 3. Create environment file
-cp .env.example .env
-```
-
-### Environment Variables
-
-Create a `.env` file in the root:
-
-```env
-VITE_API_URL=http://localhost:5000
-```
-
-> For production, set `VITE_API_URL` to your deployed backend URL.
-
-### Run Locally
-
-```bash
 npm run dev
 ```
 
-App runs at `http://localhost:5173`
+Vite starts the dev server on http://localhost:5173.
 
----
+### Environment variables
 
-## 🔗 Backend
+If the backend is not on the default URL, create a `.env` file:
 
-This frontend connects to the Voyago REST API powered by Node.js, Express, and MongoDB.
-
-> **Backend Repository:** [https://github.com/Abhi27-27/Travelplanner-backend](https://github.com/Abhi27-27/Travelplanner-backend)
-
-Make sure the backend is running before starting the frontend locally.
-
----
-
-## 🚢 Deployment
-
-Deployed on **Vercel**. The `vercel.json` rewrite rule handles client-side routing:
-
-```json
-{
-  "rewrites": [{ "source": "/(.*)", "destination": "/index.html" }]
-}
+```env
+VITE_API_BASE_URL=http://localhost:3001
 ```
 
----
+## Build and deploy
 
-<div align="center">
-Made by <a href="https://github.com/Abhi27-27">Marreddy Abhiram Muni Reddy</a> · IIT Kharagpur
-</div>
+```bash
+npm run build
+```
+
+This produces a static build in `dist/` that can be hosted on Vercel, Netlify or any
+static host. Make sure VITE_API_BASE_URL points at your deployed backend, and that
+the backend allows this site's URL in its CORS settings.
